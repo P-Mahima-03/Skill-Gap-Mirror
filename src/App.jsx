@@ -12,6 +12,80 @@ const topicSuggestions = {
   'Operators': 'Revise arithmetic, relational, and logical operators.'
 }
 
+function DailyLearningStreak() {
+  const getDateKey = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const [activeDays, setActiveDays] = useState(() => {
+    try {
+      return JSON.parse(
+        localStorage.getItem("skillGapActiveDays")
+      ) || [];
+    } catch {
+      return [];
+    }
+  });
+
+  const today = new Date();
+  const todayKey = getDateKey(today);
+  const completedToday = activeDays.includes(todayKey);
+
+  function completeLearning() {
+    if (completedToday) return;
+
+    const updatedDays = [...new Set([...activeDays, todayKey])];
+    setActiveDays(updatedDays);
+    localStorage.setItem(
+      "skillGapActiveDays",
+      JSON.stringify(updatedDays)
+    );
+  }
+
+  const sortedDays = [...new Set(activeDays)].sort();
+  let streak = 0;
+  const checkDate = new Date(today);
+
+  if (!completedToday) {
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
+
+  while (sortedDays.includes(getDateKey(checkDate))) {
+    streak++;
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
+
+  const monday = new Date(today);
+  const day = monday.getDay();
+  monday.setDate(monday.getDate() - (day === 0 ? 6 : day - 1));
+
+  const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  
+  return (
+    <section className="dashboard-section">
+      <h2>🔥 Daily Streak</h2>
+      <p>🔥 {streak} day streak</p>
+      <p>
+        {completedToday
+          ? "Today's learning completed! 🎉"
+          : "Have you learned today?"}
+      </p>
+      <button
+  className="start-btn"
+  onClick={completeLearning}
+  disabled={completedToday}
+>
+  {completedToday
+    ? "✓ Completed for Today"
+    : "I Completed Today's Learning"}
+</button>
+    </section>
+  );
+}
 
 const questions = [
   { topic: 'Java Basics', question: 'Which keyword is used to create a class in Java?', options: ['function', 'class', 'define', 'struct'], answer: 1 },
@@ -274,7 +348,7 @@ const overallProgress = totalRoadmapSteps > 0
     <p>Your career goal</p>
   </div>
 </div>
-
+<DailyLearningStreak />
 
 
 <section className="dashboard-section">

@@ -963,3 +963,136 @@ body {
   font-weight: 600;
   vertical-align: middle;
 }
+
+
+.streak-card {
+  margin: 24px 0;
+  padding: 24px;
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 20px;
+  background: linear-gradient(135deg, #17172f, #242044);
+  color: #fff;
+}
+
+.streak-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.streak-label {
+  color: #c4b5fd;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.streak-header h2 {
+  margin: 8px 0;
+  font-size: 24px;
+}
+
+.streak-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 95px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.streak-count span {
+  font-size: 28px;
+}
+
+.streak-count strong {
+  font-size: 32px;
+}
+
+.streak-count small {
+  color: #c9c5dc;
+}
+
+.streak-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin: 28px 0;
+}
+
+.streak-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #c9c5dc;
+  font-size: 13px;
+}
+
+.day-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.day-circle.active {
+  background: #23664d;
+  color: #a7f3d0;
+  font-weight: 700;
+}
+
+.streak-button {
+  width: 100%;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 12px;
+  background: #8b5cf6;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.streak-button:hover {
+  background: #7c3aed;
+}
+
+.streak-button:disabled {
+  background: #23664d;
+  cursor: default;
+}
+
+.streak-note {
+  margin: 12px 0 0;
+  text-align: center;
+  color: #c9c5dc;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .streak-card {
+    padding: 16px;
+  }
+
+  .streak-header h2 {
+    font-size: 20px;
+  }
+
+  .streak-week {
+    gap: 4px;
+  }
+
+  .day-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+}
