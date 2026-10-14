@@ -33,6 +33,9 @@ function DailyLearningStreak() {
   const today = new Date();
   const todayKey = getDateKey(today);
   const completedToday = activeDays.includes(todayKey);
+  const weekStart = new Date(today);
+const dayOfWeek = today.getDay();
+weekStart.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
 
   function completeLearning() {
     if (completedToday) return;
@@ -63,11 +66,19 @@ function DailyLearningStreak() {
   monday.setDate(monday.getDate() - (day === 0 ? 6 : day - 1));
 
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const weeklyCompleted = weekDays.filter((_, index) => {
+  const date = new Date(weekStart);
+  date.setDate(weekStart.getDate() + index);
+  return activeDays.includes(getDateKey(date));
+}).length;
 
   
   return (
     <section className="dashboard-section">
       <h2>🔥 Daily Streak</h2>
+      
+<p>📅 Weekly Progress: {weeklyCompleted}/7 days completed</p>
+
       <p>🔥 {streak} day streak</p>
       <p>
         {completedToday
